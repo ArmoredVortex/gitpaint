@@ -2,8 +2,6 @@ import { useState } from "react";
 import { DateRangePicker } from "../components/DateRangePicker";
 import { IntensitySlider } from "../components/IntensitySlider";
 import { ContributionGrid } from "@/components/ContributionGrid";
-
-// TODO: We'll create this next
 import { CustomPainter } from "@/components/CustomPainter";
 
 export default function Home() {
