@@ -1,9 +1,10 @@
 // src/components/ContributionGrid.tsx
 import React from "react";
-import { eachDayOfInterval, parseISO, format, startOfWeek } from "date-fns";
+import { eachDayOfInterval, parseISO, format } from "date-fns";
 
 const LEVELS = [
-  "#ebedf0", // 0 commits - light gray
+  "transparent", // -1 → padding
+  "#ebedf0", // 0 commits
   "#9be9a8", // 1+
   "#40c463", // 3+
   "#30a14e", // 5+
@@ -11,39 +12,67 @@ const LEVELS = [
 ];
 
 function getColor(level: number) {
-  return LEVELS[Math.min(level, 4)];
+  return LEVELS[level + 1] || LEVELS[1]; // shift index by +1 to support -1
 }
 
 function getGrid(startDate: string, endDate: string, dates: string[]) {
-  const dayCount = {};
+  const dayCount: Record<string, number> = {};
   for (const date of dates) {
     const key = format(new Date(date), "yyyy-MM-dd");
     dayCount[key] = (dayCount[key] || 0) + 1;
   }
-  // console.log(dayCount);
 
-  const start = startOfWeek(parseISO(startDate), { weekStartsOn: 0 });
-  const allDays = eachDayOfInterval({ start, end: parseISO(endDate) });
+  const originalStart = parseISO(startDate);
+  const originalEnd = parseISO(endDate);
+
+  // Head padding if startDate isn't Sunday (0)
+  const paddingStart = originalStart.getDay(); // 0 (Sun) to 6 (Sat)
+  const paddedStart = new Date(originalStart);
+  paddedStart.setDate(originalStart.getDate() - paddingStart);
+
+  const allDays = eachDayOfInterval({ start: paddedStart, end: originalEnd });
 
   const columns: string[][] = [];
+
   for (let i = 0; i < allDays.length; i += 7) {
-    const week = allDays.slice(i, i + 7).map((d) => {
-      const key = format(d, "yyyy-MM-dd");
-      // console.log(key);
-      // console.log(dayCount[key]);
+    const week = allDays.slice(i, i + 7).map((day) => {
+      const key = format(day, "yyyy-MM-dd");
+
+      // If before originalStart or after originalEnd, treat as padding
+      if (day < originalStart || day > originalEnd) return getColor(-1);
+
       const commits = dayCount[key] || 0;
-      console.log(commits);
-      // const level = Math.min(commits, 4); // Cap intensity
-      const level = commits === 0 ? 0 : Math.min(commits, LEVELS.length - 1);
+
+      let level = 0;
+      if (commits === 0) level = 0;
+      else if (commits >= 7) level = 4;
+      else if (commits >= 5) level = 3;
+      else if (commits >= 3) level = 2;
+      else level = 1;
+
       return getColor(level);
     });
+
+    // Pad final week if incomplete (usually not needed due to date-fns interval logic)
+    while (week.length < 7) {
+      week.push(getColor(-1));
+    }
+
     columns.push(week);
   }
 
   return columns;
 }
 
-export function ContributionGrid({ start, end, dates }) {
+export function ContributionGrid({
+  start,
+  end,
+  dates,
+}: {
+  start: string;
+  end: string;
+  dates: string[];
+}) {
   if (!start || !end || dates.length === 0) return null;
 
   const columns = getGrid(start, end, dates);
