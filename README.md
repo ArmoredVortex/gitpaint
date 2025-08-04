@@ -1,40 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🎨 GitPaint
 
-## Getting Started
+A fun tool to generate custom GitHub contribution graphs using real backdated Git commits. Supports both **random generation** and **custom painting** modes.
 
-First, run the development server:
+![GitPaint Preview](./screenshots/github.png)
+![GitPaint Preview](./screenshots/random.png)
+![GitPaint Preview](./screenshots/custom.png)
+
+---
+
+## 🚀 Features
+
+- 🎲 **Random Mode** – Generate commits randomly with adjustable intensity
+- 🖌️ **Custom Mode** – Paint your own pattern on the GitHub-style grid
+- 📆 Custom date range selection
+- 🟢 Real Git commits are made and backdated
+
+---
+
+## 🔧 Setup Instructions
+
+### 1. Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/gitpaint.git
+cd gitpaint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### 3. Run the application
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+```bash
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Open in your browser
 
-## Learn More
+Open `http://localhost:3000` in your web browser to start using GitPaint.
 
-To learn more about Next.js, take a look at the following resources:
+### 5. Create a private repository
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+Create a private repository on GitHub where you will push your commits. This is important to avoid cluttering your public profile with test data.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 6. Push your changes
 
-## Deploy on Vercel
+After generating your commits, you can push them to your private repository:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+git push origin main
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+# Prerequisites
+
+- Node.js (v14 or higher)
+- npm (Node Package Manager)
+- Git (for committing changes)
+- A GitHub account (to push changes to your profile)
+
+Made with ❤️ by Rachit.
