@@ -2,7 +2,7 @@ import React from "react";
 
 export function IntensitySlider({ intensity, setIntensity }) {
   return (
-    <div className="mt-4">
+    <div className="mt-4 max-w-2xl">
       <label>
         Intensity: {Math.round(intensity * 100)}%
         <input
