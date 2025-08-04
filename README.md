@@ -22,7 +22,7 @@ A fun tool to generate custom GitHub contribution graphs using real backdated Gi
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/gitpaint.git
+git clone https://github.com/armoredvortex/gitpaint.git
 cd gitpaint
 ```
 
